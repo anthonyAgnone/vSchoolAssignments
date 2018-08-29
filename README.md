@@ -1,3 +1,22 @@
-Vschool Assignments Folder
+# V School Assignments
 
-- contains all the exercises and projets completed over the course of 3 months.
+Set of assignments and exercises over the 3 month course.
+
+## Built With
+
+(running list)
+
+- [HTML]
+- [CSS]
+
+## Authors
+
+- **Anthony Agnone** - _Initial work_ - [WhisperWebSolutions](https://github.com/anthonyAgnone)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+- **Ben Turner - V School Instructor** [gitHub](https://github.com/bbgrabbag)
