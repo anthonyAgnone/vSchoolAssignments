@@ -1,0 +1,167 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+* {
+	box-sizing: border-box;
+}
+body {
+	background-color: #eeffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+nav {
+	z-index: 5000;
+	margin: 0;
+	height: 4rem;
+	background-color: #005cb2;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+}
+
+nav img {
+	height: 50%;
+	width: auto;
+	position: absolute;
+	top: 1rem;
+	left: 3rem;
+}
+
+.nav-wrap {
+	text-align: right;
+	padding: 1.5rem 3rem 1.5rem 0;
+}
+
+nav a {
+	text-decoration: none;
+	color: #fff;
+	cursor: pointer;
+	margin-left: 0.8rem;
+}
+
+nav a:hover {
+	text-decoration: underline;
+}
+
+header {
+	margin: 0;
+	background-color: #1e88e5;
+	color: #fff;
+	padding: 20vh 0 6vh 4vw;
+	margin-bottom: 4.5rem;
+}
+
+.head-wrap {
+	width: 40vw;
+	padding: 0.5rem;
+}
+
+header h1 {
+	font-weight: 300;
+	font-size: 4.5rem;
+	line-height: 1.3;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+header .lead {
+	text-align: right;
+	font-style: italic;
+}
+
+main {
+	width: 80vw;
+	margin: 0 auto;
+}
+
+main h2 {
+	font-weight: 300;
+	font-size: 2.1rem;
+	margin-left: 2rem;
+}
+
+main ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+main ul li {
+	width: 100%;
+	background-color: #bbdefb;
+	padding: 2rem 2rem;
+}
+
+main ul li:nth-child(odd) {
+	background-color: #8aacc8;
+	margin: 1px 0;
+}
+
+.punchline {
+	padding-left: 1rem;
+	padding-top: 1rem;
+}
+
+.punchline:nth-child(3) {
+	padding-left: 2rem;
+}
+
+.punchline:nth-child(4) {
+	padding-left: 3rem;
+}
+
+.punchline:nth-child(5) {
+	padding-left: 4rem;
+}
+
+main h3 {
+	padding: 2.5rem;
+}
+
+form {
+	padding-left: 2rem;
+}
+
+form input {
+	background-color: #bbdefb;
+	border: none;
+}
+
+form label {
+	margin-left: 1rem;
+}
+
+form button {
+	background-color: #bbdefb;
+	border: none;
+	padding: 0.5rem 0.8rem;
+	border-radius: 10px;
+	margin-left: 2.5rem;
+	cursor: pointer;
+}
+
+form button:hover {
+	color: #fff;
+	background-color: #69b6ff;
+}
+
+footer {
+	margin-top: 4rem;
+	background-color: #69b6ff;
+	display: flex;
+	color: #fff;
+}
+
+footer p {
+	margin-left: 2rem;
+	font-size: 0.8rem;
+}
