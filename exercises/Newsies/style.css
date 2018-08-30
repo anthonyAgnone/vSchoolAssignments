@@ -1,0 +1,37 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header {
+	width: 80vw;
+	height: 30vh;
+	background: peru;
+	margin: 0 auto;
+}
+
+.display-3 {
+	font-size: 6rem;
+	font-weight: 300;
+	text-align: center;
+	padding-top: 5rem;
+}
+
+.scores {
+	height: 10vh;
+	padding-top: 1vh;
+	margin: 2rem auto;
+	background-color: peru;
+	width: 80vw;
+}
+
+.score {
+	background-color: YellowGreen;
+	min-width: 8rem;
+	min-height: 8vh;
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 3.5vw;
+}
