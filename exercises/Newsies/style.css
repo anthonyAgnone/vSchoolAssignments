@@ -3,12 +3,12 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	line-height: 1.5;
 }
 
 header {
 	width: 80vw;
 	height: 30vh;
-	background: peru;
 	margin: 0 auto;
 }
 
@@ -19,19 +19,176 @@ header {
 	padding-top: 5rem;
 }
 
+h4 {
+	text-align: center;
+	margin-bottom: 0;
+	font-size: 1.8rem;
+}
+
 .scores {
-	height: 10vh;
+	height: 25h;
 	padding-top: 1vh;
-	margin: 2rem auto;
-	background-color: peru;
-	width: 80vw;
+	margin: 1rem auto 2rem auto;
 }
 
 .score {
-	background-color: YellowGreen;
 	min-width: 8rem;
-	min-height: 8vh;
+	min-height: 6vh;
 	display: inline-block;
+	margin-right: 2rem;
+	text-align: center;
+}
+
+.score:first-child {
+	margin-left: 15%;
+}
+
+.section-wrap {
+	width: 90vw;
 	margin: 0 auto;
-	margin-left: 3.5vw;
+	border-top: 3px double #000;
+	border-bottom: 3px double #000;
+	height: auto;
+}
+
+.sub-section {
+	display: inline-block;
+	padding: 2rem 2rem;
+	max-width: 40vw;
+}
+
+.sub-section:last-child {
+	float: right;
+}
+
+.sub-section h3 {
+	padding: 0 0 0 3rem;
+	min-height: 4rem;
+}
+
+.sub-section p {
+	min-height: 5rem;
+}
+
+.sub-section a {
+	float: right;
+}
+
+aside {
+	max-width: 20vw;
+	display: inline-block;
+	padding: 0 2rem 0 4rem;
+	margin-right: 3vw;
+	margin-top: 10vh;
+	position: relative;
+	top: -85px;
+	border-right: 3px double #000;
+}
+
+aside a {
+	float: right;
+	padding-right: 2rem;
+}
+
+.side-article {
+	height: 30vh;
+	margin-bottom: 4rem;
+}
+
+.side-article p {
+	margin: 0 0 1rem 0;
+	padding: 0;
+}
+
+main {
+	margin-top: 10vh;
+	max-width: 65vw;
+	display: inline-block;
+}
+
+main h1 {
+	padding: 1rem 2rem;
+	text-align: center;
+}
+
+main p {
+	margin: 0 auto 2rem auto;
+	line-height: 2.2;
+}
+
+main img {
+	float: left;
+	width: 25vw;
+	height: auto;
+	margin: 0 2rem 1rem 0;
+}
+
+.classified-title {
+	text-align: center;
+	margin-top: 5vh;
+}
+
+.class-link {
+	position: relative;
+	left: 47%;
+}
+
+.classifieds {
+	width: 98vw;
+	margin: 10vh auto;
+}
+
+.classify {
+	display: inline-block;
+	min-height: 23vh;
+	min-width: 20vw;
+	max-width: 20vw;
+	margin-right: 2rem;
+	padding: 0;
+	border: 3px double #000;
+}
+
+.classify:first-child {
+	margin-left: 6%;
+}
+
+.card-head {
+	padding: 0;
+	background-image: url('https://picsum.photos/200/300');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	z-index: -2;
+	width: 20vw;
+	height: 10vh;
+}
+
+.card-head h3 {
+	padding: 1rem 0;
+	margin: 0;
+	font-size: 2rem;
+	z-index: 2;
+	text-align: center;
+}
+
+.overlay {
+	background-color: rgba(255, 255, 255, 0.15);
+	z-index: 0;
+	position: relative;
+	top: -5rem;
+	height: 100%;
+	width: 18vw;
+	height: 10vh;
+}
+
+.card-body {
+	height: 40%;
+	position: relative;
+	bottom: 0;
+	padding: 0 1rem;
+}
+
+.special p {
+	margin-bottom: 0.3rem;
+	line-height: 0.6rem;
 }
