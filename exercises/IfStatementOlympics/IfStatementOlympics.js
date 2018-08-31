@@ -89,7 +89,7 @@ if (dog != undefined) {
 const checkValues = (letter, number) => {
 	let newLetter = letter.charCodeAt(0);
 	if (newLetter > number) {
-		console.log('letter ' + letter + ' is greater than ' + number + '.');
+		console.log(`Letter ${letter} is not greater than ${number}.`);
 	} else {
 		console.log('letter ' + letter + ' is not greater than ' + number + '.');
 	}
