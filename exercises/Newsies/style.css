@@ -136,6 +136,7 @@ main img {
 .classifieds {
 	width: 98vw;
 	margin: 10vh auto;
+	min-height: 35vh;
 }
 
 .classify {

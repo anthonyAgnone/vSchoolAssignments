@@ -11,7 +11,7 @@ Set of assignments and exercises over the 3 month course.
 
 ## Authors
 
-- **Anthony Agnone** - _Initial work_ - [WhisperWebSolutions](https://github.com/anthonyAgnone)
+- **Anthony Agnone** - _Initial work_ - [WhisperWebSolutions](http://www.whisperedwebsolutions.com)
 
 ## License
 
