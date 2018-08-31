@@ -1,0 +1,41 @@
+* {
+	box-sizing: border-box;
+}
+
+.wrap {
+	width: 75vw;
+	height: 50vw;
+	margin: 4% auto;
+}
+
+.row {
+	height: calc(25% - 7px);
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.one div {
+	width: 100%;
+	background-color: #f5c6d6;
+}
+
+.two div {
+	width: calc(25% - 7px);
+	background-color: #ee2e84;
+}
+
+.three div {
+	width: calc(50% - 5px);
+	background-color: #85cfd8;
+}
+
+.four div {
+	width: 25%;
+	background: #8dc63f;
+}
+
+.four div:first-child {
+	width: calc(75% - 10px);
+	background: #e76e34;
+}
