@@ -1,0 +1,322 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+aside {
+	height: 100vh;
+	width: 14vw;
+	border-right: 1px solid gba(0, 0, 0, 0.5);
+	box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+aside h3 {
+	font-size: 2.1rem;
+	margin-bottom: 2rem;
+}
+
+.nav-link {
+	color: #000;
+	text-decoration: none;
+	display: block;
+	margin-bottom: 1.2rem;
+	font-size: 1.3rem;
+}
+
+main {
+	margin-left: 13vw;
+	padding: 2rem;
+}
+
+h1 {
+	text-align: center;
+	font-size: 5.1rem;
+	margin-bottom: 0.5rem;
+	padding-top: 1rem;
+}
+
+.flag {
+	width: 60vw;
+	height: 80vh;
+	margin: 0 auto 15vh auto;
+	box-shadow: 4px 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.squareFlag {
+	width: 40vw;
+	height: 73vh;
+	margin: 0 auto 15vh auto;
+	box-shadow: 4px 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+.vertical {
+	display: flex;
+	flex-direction: rows;
+}
+
+.horizontal {
+	display: flex;
+	flex-direction: column;
+}
+
+.grid {
+	display: grid;
+}
+
+.blue {
+	background-color: #0055a4;
+}
+
+.red {
+	background-color: #ff0000;
+}
+
+.white {
+	background-color: #fff;
+}
+
+.black {
+	background-color: #000;
+}
+
+.yellow {
+	background-color: #ffce00;
+}
+
+.green {
+	background-color: #007e3a;
+}
+
+.lightblue {
+	background-color: #006aa7;
+}
+
+.orange {
+	background-color: #e05206;
+}
+
+.lime {
+	background-color: #0db02b;
+}
+
+.maroon {
+	background-color: #d21034;
+}
+
+.darkgreen {
+	background-color: #007e3a;
+}
+
+.a {
+	grid-area: a;
+}
+
+.b {
+	grid-area: b;
+}
+.c {
+	grid-area: c;
+}
+
+.borderTB {
+	border-top: 35px solid white;
+	border-bottom: 35px solid white;
+}
+
+.france .stripe {
+	width: 33.33333333%;
+	height: 100%;
+}
+
+.germany .stripe {
+	width: 100%;
+	height: 33.333333%;
+}
+
+.madagascar {
+	grid-template-areas:
+		'a b b'
+		'a c c';
+}
+
+.switzerland {
+	position: relative;
+}
+
+.swisshori {
+	width: 60%;
+	height: 150px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.swissverti {
+	width: 150px;
+	height: 50vh;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+.sweden {
+	position: relative;
+}
+
+.swedhori {
+	width: 100%;
+	height: 120px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.swedverti {
+	width: 120px;
+	height: 100%;
+	position: absolute;
+	left: 33%;
+}
+
+.gambia .stripe {
+	width: 100%;
+	height: 33.33333%;
+}
+
+.tonga {
+	width: 70vw;
+}
+
+.tongaBox {
+	width: 38%;
+	height: 45%;
+	position: relative;
+}
+
+.tongahori {
+	width: 50%;
+	height: 60px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tongaverti {
+	width: 60px;
+	height: 75%;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.circle {
+	width: 50vh;
+	height: 50vh;
+	border-radius: 50%;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.greece {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.greeceBox {
+	width: 36%;
+	height: 55.5555555555%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.greecehori {
+	width: 100%;
+	height: 20%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.greeceverti {
+	width: 20%;
+	height: 100%;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.greece .stripes {
+	width: 100%;
+	height: 11.111111111%;
+}
+
+.niger {
+	position: relative;
+}
+
+.niger .stripes {
+	height: 33.333333333333%;
+	width: 100%;
+}
+
+.niger .circle {
+	width: 22vh;
+	height: 22vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.maldivesBox {
+	width: 66.66667%;
+	height: 50%;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.quarterMoon {
+	height: 25vh;
+	width: 25vh;
+	border-radius: 50%;
+	box-shadow: inset 28px 0px 1px 2px #fff;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.belize {
+	background-image: url('TrollFace.png');
+	background-size: 20%;
+}
+
+.flag:hover,
+.squareFlag:hover {
+	animation: oscill 1s ease-in-out infinite alternate;
+}
+
+@keyframes oscill {
+	100% {
+		transform: translate3D(2px, 4px, 20px) rotate(0.3deg);
+	}
+}
