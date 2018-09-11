@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mario Pest Control!!!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="intro">
+    <div class="curtain"></div>
+    <h1 class="h1">super mario pest control</h1>
+
+    <div class="hills">
+      <img src="./images/hill.png" alt="">
+      <img src="./images/hill.png" alt="">
+    </div>
+    <div class="floor"></div>
+    <a href="#" class="start">1 player game</a>
+  </div>
+  <nav id="sideNav" class="side-nav bg-blue grid p-absolute w-25vw m0">
+    <div class="screw-div">
+      <div class="screw">
+        <div class="line"></div>
+      </div>
+      <div class="screw">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div class="form">
+      <h1>detailed total</h1>
+      <div class="pest-group">
+        <form name="peachInvoice" id="form">
+          <label for="goombaInput">goomba</label>
+          <input name="goombaInput" type="number" />
+          <label for="bobOmbInput">bob-omb</label>
+          <input name="bobOmbInput" type="number" />
+          <label for="cheepInput">cheap-cheap</label>
+          <input name="cheepInput" type="number" />
+          <button id="submitForm">Submit Invoice</button>
+        </form>
+      </div>
+    </div>
+    <div class="screw-div">
+      <div class="screw">
+        <div class="line"></div>
+      </div>
+      <div class="screw">
+        <div class="line"></div>
+      </div>
+    </div>
+  </nav>
+  <div class="game-area" id="gameWindow">
+  </div>
+
+  <div class="hill"></div>
+
+  <div class="grass"></div>
+
+  <div class="ground w-100vw p-absolute">
+    <div class="top-layer"></div>
+    <div class="middle-layer"></div>
+    <div class="bottom-layer"></div>
+  </div>
+  <footer>
+    <div class="counter">
+      <div class="counterInner">
+        <div class="world">
+          <p>world 1</p>
+        </div>
+        <div class="counter-score">
+          <p>$</p><span class="totalCounter" id="counter"></span>
+        </div>
+      </div>
+    </div>
+    <div class="show-nav">
+      <button id="showNav" class="nav-button">Show Form</button>
+    </div>
+    <div class="load-more">
+      <button id="load-more" class="nav-button">More Baddies</button>
+    </div>
+    <p class="address">
+      itsame@mario.com X
+      <a href="http://www.nintendo.com" target=_blanket>mario.com</a> X mario's physical address</p>
+  </footer>
+
+  <div class="invoice">
+    <div class="invoice-inner">
+      <h1>mario pest control services</h1>
+      <h3>princess toadstool:</h3>
+      <p>as per your instructions we have stomped on many baddies. the pre determined rate is as follows
+      </p>
+      <ul>
+        <li>goomba $<span id="goombaValue"></span></li>
+        <li>bobombs $<span id="bobValue"></span></li>
+        <li>cheep cheep $<span id="cheepValue"></span></li>
+      </ul>
+      <p> we have eradicated
+        <span id="goombaTotal"></span> goomba
+        <span id="bobombTotal"></span> bobombs and
+        <span id="cheepTotal"></span> cheep cheep
+      </p>
+      <p>
+        this brings your total to $<span id="finalTotal"></span>
+      </p>
+      <p>payment is due by this friday</p>
+      <p>and no your purse being in another castle will not be considered as an adequate excuse for delay in payment</p>
+      <p>sincerely,</p>
+      <p>itsame a mario</p>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

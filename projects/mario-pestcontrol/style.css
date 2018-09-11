@@ -1,0 +1,902 @@
+:root {
+  --skyblue: #a5fcfc;
+  --darkcolor: #141810;
+  --offwhite: rgb(242, 255, 255);
+  --panelblue: #b7e9ee;
+  --panelpink: #f7cec3;
+  --groundpink: #fcbcb0;
+  --groundbrown: #fc9838;
+  --scoreBlue: #9bf7e8;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: marioFont;
+  src: url(fonts/Super-Mario-Bros--3.ttf);
+}
+
+body {
+  background-color: var(--skyblue);
+  color: var(--darkcolor);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  font-family: marioFont;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.text-off-white {
+  color: var(--offwhite);
+}
+
+.text-panel-blue {
+  color: var(--panelblue);
+}
+
+.bg-dark {
+  background-color: var(--darkcolor);
+}
+
+.bg-sky {
+  background-color: var(--skyblue);
+}
+
+.bg-blue {
+  background-color: var(--panelblue);
+}
+
+.bg-pink {
+  background-color: var(--panelpink);
+}
+
+.m0 {
+  margin: 0;
+}
+
+.p0 {
+  padding: 0;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-absolute {
+  position: absolute;
+}
+
+.grid {
+  display: grid;
+}
+
+.flex {
+  display: flex;
+}
+
+.w-100vw {
+  width: 100vw;
+}
+
+.w-50vw {
+  width: 50vw;
+}
+
+.w-25vw {
+  width: 25vw;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.h-50vh {
+  height: 50vh;
+}
+
+/* Intro */
+
+.intro {
+  background-color: black;
+  width: 100vw;
+  height: 100vw;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  transition: all 1s ease;
+  transition-delay: 2s;
+  opacity: 1;
+}
+
+.loadIntro {
+  background-color: #ffd8a1;
+}
+
+.curtain {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  background: url('./images/curtain.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  transition: all 3s linear;
+}
+
+.loaded {
+  transform: translateY(-75%);
+}
+
+.floor {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  background: url('./images/floor.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.h1 {
+  color: #659bf2;
+  text-shadow: 12px 12px #3000ba;
+  font-size: 5em;
+  width: 40%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  text-align: center;
+  transform: translateY(-150%) translateX(-50%);
+  transition: all 0.2s linear;
+  transition-delay: 3s;
+}
+
+.start {
+  font-size: 3rem;
+  border: none;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: 35%;
+  opacity: 0;
+  transition: all 0.1s linear;
+  transition-delay: 4s;
+  color: #000;
+  text-decoration: none;
+}
+
+.loadtext {
+  transform: translateY(20%) translateX(-50%);
+}
+
+.visible {
+  opacity: 1;
+}
+
+.hills {
+  height: 35vh;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  top: 51vh;
+  transition: all 0.3s linear;
+  width: 170vw;
+  left: -35vw;
+  transition-delay: 3s;
+}
+
+.hillsLoaded {
+  width: 120vw;
+  left: -10vw;
+}
+
+.hills img {
+  height: 100%;
+  width: auto;
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+/* Game Area */
+.game-area {
+  height: 80vh;
+  width: 100vw;
+  position: absolute;
+  bottom: 15vh;
+  cursor: url(images/marioCursorJump.png), auto;
+  z-index: 1;
+}
+
+.standingMario {
+  cursor: url(images/marioCursor.png), auto;
+}
+
+.flyingMario {
+  cursor: url(images/marioCursorFly.png), auto;
+}
+
+.hill {
+  background: url('./images/hill.png');
+  position: absolute;
+  right: 0;
+  bottom: 23vh;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  height: 35vh;
+  width: 30vw;
+  animation: hill 100s linear infinite;
+}
+
+.grass {
+  background: url('./images/bushes.png');
+  position: absolute;
+  right: 40vw;
+  bottom: 23vh;
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  height: 5vh;
+  width: 30vw;
+  animation: grass 50s linear infinite;
+}
+
+.cloud {
+  position: absolute;
+  width: 152px;
+  height: 73px;
+  background-image: url(./images/cloud.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  animation: cloud 60s linear infinite;
+}
+
+/* Footer Area */
+
+footer {
+  background-color: var(--darkcolor);
+  position: absolute;
+  bottom: 0;
+  height: 15vh;
+  width: 100vw;
+  z-index: 10;
+}
+
+.counter {
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 10vh;
+  width: 30vw;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.counterInner {
+  position: absolute;
+  width: 98%;
+  border: 3px solid black;
+  height: 85%;
+  left: 50%;
+  top: 50%;
+  background-color: var(--scoreBlue);
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: 30% 50% 20%;
+  grid-template-rows: repeat(2, 1fr);
+  font-size: 20px;
+  padding: 0 1em;
+}
+
+.counter-score {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.totalCounter {
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+}
+
+.show-nav {
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 10vh;
+  width: 10vh;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.load-more {
+  position: absolute;
+  left: 47%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 10vh;
+  width: 10vh;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.nav-button {
+  position: absolute;
+  width: 85%;
+  border: 3px solid black;
+  height: 85%;
+  left: 50%;
+  top: 50%;
+  background-color: var(--scoreBlue);
+  transform: translate(-50%, -50%);
+}
+
+.address {
+  color: #fff;
+  position: absolute;
+  left: 70%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.address a {
+  color: #fff;
+}
+
+/* Side Nav Section */
+
+.side-nav {
+  top: 0;
+  right: -25vw;
+  border-radius: 10px;
+  border-right: 6px solid #3cbcfc;
+  border-bottom: 6px solid #3cbcfc;
+  padding: 2px;
+  grid-template-rows: 10px 1fr 18px;
+  height: 77vh;
+  cursor: default;
+  transition: all 0.3s ease-out;
+  z-index: 20;
+}
+
+.moved {
+  transform: translateX(-108%);
+}
+
+.side-nav:after {
+  position: absolute;
+  background-color: var(--darkcolor);
+  content: '';
+  top: 4vh;
+  z-index: -1;
+  height: 73vh;
+  width: 30px;
+  border-top-right-radius: 10px;
+
+  right: -35px;
+}
+
+.form {
+  padding: 3em;
+  grid-row: 2;
+}
+
+.pest-group {
+  height: 100%;
+}
+
+.pest-group form {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  justify-content: space-around;
+}
+
+.screw-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.screw {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--darkcolor);
+  position: relative;
+}
+
+.screw-div:first-child {
+  margin-top: 5px;
+  grid-row: 1;
+}
+
+.screw-div:last-child {
+  grid-row: 3;
+}
+
+.line {
+  height: 2px;
+  width: 8px;
+  background-color: var(--darkcolor);
+  transform: rotate(135deg) translateY(20%) translateX(0%);
+  position: absolute;
+  top: 50%;
+  left: 20%;
+}
+
+/* Ground Layer */
+
+.ground {
+  bottom: 15vh;
+  height: 8vh;
+  display: flex;
+  flex-direction: column;
+  border-top: 2px solid var(--darkcolor);
+  background-color: var(--groundbrown);
+}
+
+.top-layer {
+  width: 100%;
+  height: 15%;
+  background-color: var(--groundpink);
+  border-bottom: 2px solid var(--darkcolor);
+}
+
+.middle-layer {
+  width: 100%;
+  height: 10%;
+  background-color: var(--groundpink);
+  background: repeating-linear-gradient(
+    45deg,
+    var(--groundpink),
+    var(--groundpink) 5px,
+    var(--groundbrown) 5px,
+    var(--groundbrown) 10px
+  );
+}
+
+.bottom-layer {
+  height: 75%;
+  width: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--groundbrown),
+    var(--groundbrown) 6px,
+    var(--darkcolor) 6px,
+    var(--darkcolor) 12px
+  );
+  opacity: 0.7;
+}
+
+/* Coin Area */
+
+.coin {
+  width: 12px;
+  height: 24px;
+  border-radius: 10px;
+  background: yellow;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  top: 70px;
+  left: 15px;
+}
+
+.coinAnimate {
+  animation: coin 0.6s ease;
+}
+
+.inner-coin {
+  width: 6px;
+  height: 12px;
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  border-top: 1px solid white;
+  border-right: 1px solid rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  border-left: 1px solid white;
+}
+
+.cheepHitBox .coin {
+  top: 10px;
+  opacity: 0;
+}
+
+.cheepHitBox .coinAnimate {
+  animation: coinCheep 0.6s ease;
+}
+
+/* Bob-Omb Area */
+.bobHitBox {
+  width: 40px;
+  height: 95px;
+  position: absolute;
+  bottom: 8vh;
+  animation: bobomb 45s ease infinite;
+  z-index: 5;
+}
+
+.bob-omb {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: -13px;
+}
+
+.bob-body {
+  background-color: var(--darkcolor);
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  padding: 6px 4px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.bomDeath .bob-body {
+  background-color: #d5362b;
+  animation: explode 1s ease;
+}
+
+.bob-eye {
+  height: 6px;
+  width: 2px;
+  border-radius: 50%;
+  background-color: white;
+  margin-right: 1px;
+}
+
+.bob-feet {
+  display: flex;
+  height: 10px;
+  width: 24px;
+  margin: 0 auto;
+  transform: translateY(-35%);
+  justify-content: space-between;
+  padding-right: 2px;
+  animation: feet 2s ease infinite;
+}
+
+.foot {
+  width: 8px;
+  height: 6px;
+  background-color: #edd2bf;
+  border-radius: 5px;
+}
+
+.foot:first-child {
+  transform: rotate(28deg);
+}
+.foot:last-child {
+  transform: rotate(-28deg);
+}
+
+.winder {
+  position: absolute;
+  height: 14px;
+  width: 8px;
+  right: 0;
+  top: 15%;
+  animation: wind 5s linear infinite;
+  transform-origin: 50%;
+}
+
+.windhori {
+  position: absolute;
+  width: 5px;
+  height: 3px;
+  background-color: #edd2bf;
+  top: 40%;
+}
+
+.windverti {
+  height: 14px;
+  width: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  position: absolute;
+  right: 2px;
+  top: 0;
+  background-color: #edd2bf;
+  z-index: -1;
+}
+
+/* Goomba Area */
+
+.goombaHitBox {
+  width: 40px;
+  height: 95px;
+  position: absolute;
+  bottom: 9.5vh;
+  right: -5%;
+  animation: goombaMove 38s linear infinite;
+  z-index: 5;
+}
+
+.goomba {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: -13px;
+  background: url('images/goombaL.png');
+  animation: goombaWalk 1s linear infinite;
+}
+
+.goombaDeath .goomba {
+  animation: goombaDeath 0.2s ease forwards;
+}
+
+/* Cheep area */
+
+.cheepHitBox {
+  width: 40px;
+  height: 95px;
+  position: absolute;
+  top: 9.5vh;
+  right: 10%;
+  animation: cheepMove 19s ease-in-out infinite;
+  z-index: 5;
+}
+
+.cheepBody {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  bottom: -13px;
+  background: url('images/cheepUp.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  animation: flap 3s linear infinite;
+  z-index: 2;
+  transition: all 0.32 ease;
+}
+
+.cheepDeath .cheepBody {
+  transform: tranlateX(400px);
+}
+
+/* Invoice Area */
+.invoice {
+  background-color: #ffd8a1;
+  width: 50vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  padding: 2em;
+  z-index: 500;
+  transition: all 0.4s ease-out;
+}
+
+.invoice-inner {
+  height: 100%;
+  width: 100%;
+  border: 6px double var(--darkcolor);
+  margin: 0 auto;
+  padding: 2em;
+}
+
+.invoice-in {
+  transform: translate(-50%, 0);
+}
+
+.invoice-inner h1 {
+  text-align: center;
+}
+
+.invoice-inner p {
+  line-height: 1.5;
+}
+
+/* Animations */
+
+@keyframes cloud {
+  to {
+    left: -300px;
+  }
+}
+
+@keyframes hill {
+  to {
+    transform: translateX(-334%);
+  }
+}
+
+@keyframes grass {
+  0% {
+    transform: translateX(0);
+  }
+  38% {
+    transform: translateX(-204%);
+  }
+  39% {
+    transform: translateY(900%);
+  }
+  40% {
+    transform: translateX(280%);
+  }
+  41% {
+    transform: translateY(0);
+    transform: translateX(279%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cheepDeath {
+  to {
+    transform: translateY(1600px);
+  }
+}
+
+@keyframes cheepMove {
+  to {
+    transform: translate(-3000%);
+  }
+}
+
+@keyframes flap {
+  0% {
+    background: url('images/cheepUp.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-150%);
+  }
+  50% {
+    background: url('images/cheepDown.png');
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes goombaDeath {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0.5);
+  }
+}
+
+@keyframes explode {
+  0% {
+    background-color: #d5362b;
+  }
+  15% {
+    background-color: var(--darkcolor);
+  }
+  30% {
+    background-color: #d5362b;
+  }
+  45% {
+    background-color: var(--darkcolor);
+  }
+  50% {
+    background-color: #d5362b;
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.4);
+  }
+}
+
+@keyframes goombaMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-3000%);
+  }
+}
+
+@keyframes goombaWalk {
+  0% {
+    background: url('images/goombaL.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+  100% {
+    background: url('images/goombaR.png');
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+}
+
+@keyframes wind {
+  from {
+    transform: rotateX(0);
+  }
+  to {
+    transform: rotateX(-360deg);
+  }
+}
+
+@keyframes feet {
+  0% {
+    width: 24px;
+  }
+  50% {
+    width: 10px;
+  }
+  100% {
+    width: 24px;
+  }
+}
+
+@keyframes bobomb {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+  10% {
+    transform: translateX(-100%) rotate(0);
+  }
+  20% {
+    transform: translateX(-250%) rotate(0);
+  }
+  22% {
+    transform: translateX(-248%) rotateY(180deg);
+  }
+  50% {
+    transform: translateX(648%) rotateY(180deg);
+  }
+  52% {
+    transform: translateX(646%) rotateY(0);
+  }
+  100% {
+    transform: translateX(0) rotateY(0);
+  }
+}
+
+@keyframes coin {
+  from {
+    transform: translateY(0) rotateY(0);
+  }
+  to {
+    transform: translateY(-50px) rotateY(720deg);
+  }
+}
+
+@keyframes coinCheep {
+  from {
+    transform: translateY(0) rotateY(0);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-50px) rotateY(720deg);
+    opacity: 1;
+  }
+}
