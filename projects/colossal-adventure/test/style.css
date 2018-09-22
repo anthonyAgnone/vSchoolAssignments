@@ -1,0 +1,12 @@
+span {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+.map {
+  margin-bottom: 3em;
+}
