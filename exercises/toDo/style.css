@@ -1,0 +1,17 @@
+section {
+	display: flex;
+	width: 50vw;
+	height: 50vh;
+	justify-content: space-around;
+}
+
+.toDo {
+	background-color: blue;
+	color: white;
+	width: 250px;
+	height: 100px;
+}
+
+.checked {
+	text-decoration: line-through;
+}
