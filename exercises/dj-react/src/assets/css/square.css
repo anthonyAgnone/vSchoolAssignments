@@ -1,0 +1,48 @@
+.square {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.square:after {
+	transition: all 0.3s ease;
+	content: '';
+	display: block;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	bottom: -5px;
+	right: -5px;
+	z-index: -1;
+	border-radius: 10px;
+	opacity: 1;
+	background-image: linear-gradient(to bottom, #ccc 0%, #999 40%);
+	box-shadow: 0px -1px 2px 0 #000 inset, 0px 1px 1px 1px #ccc, 0 0 0 6px #fff,
+		0 2px 12px 8px #fff;
+}
+
+.black:after {
+	background-image: linear-gradient(to bottom, #ccc 0%, #222 40%);
+}
+
+.white:after {
+	background-image: linear-gradient(to bottom, #ccc 0%, #fff 40%);
+}
+
+.purple:after {
+	background-image: linear-gradient(to bottom, #9c4dcc 0%, #6a1b9a 40%);
+}
+.blue:after {
+	background-image: linear-gradient(to bottom, #768fff 0%, #2962ff 40%);
+}
+
+.flash:after {
+	animation: flashRed 0.3s ease;
+}
+
+@keyframes flashRed {
+	to {
+		background-image: linear-gradient(to bottom, #ff5131 0%, #9b0000 40%);
+	}
+}
