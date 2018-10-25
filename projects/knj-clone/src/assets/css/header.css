@@ -1,0 +1,39 @@
+.headerWrap {
+  grid-column: 1 / span 14; }
+  .headerWrap .slideShow {
+    width: 100%;
+    overflow: hidden;
+    height: 130px; }
+    @media (min-width: 960px) {
+      .headerWrap .slideShow {
+        height: 85vh; } }
+    .headerWrap .slideShow img {
+      height: auto;
+      width: 100%; }
+  .headerWrap .email {
+    width: 100%;
+    height: 70px;
+    background: radial-gradient(ellipse at center, rgba(252, 202, 178, 0.56) 0%, rgba(255, 177, 140, 0.2) 100%);
+    padding: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; }
+    .headerWrap .email input {
+      width: 100%;
+      border: none;
+      padding: 5px; }
+      @media (min-width: 960px) {
+        .headerWrap .email input {
+          width: 20%; } }
+    .headerWrap .email button {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(-100%, -50%);
+      background: #fff;
+      border: none;
+      font-weight: 300; }
+      @media (min-width: 960px) {
+        .headerWrap .email button {
+          right: 39%; } }

@@ -1,0 +1,30 @@
+{
+	"name": "hearten-design",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/anthonyAgnone/frontend-design.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/anthonyAgnone/frontend-design/issues"
+	},
+	"homepage": "https://github.com/anthonyAgnone/frontend-design#readme",
+	"dependencies": {
+		"axios": "^0.18.0",
+		"dotenv": "^6.1.0",
+		"express": "^4.16.4",
+		"query-string": "^6.2.0",
+		"react-html-parser": "^2.0.2",
+		"react-transition-group": "^1.2.1",
+		"request": "^2.88.0"
+	}
+}

@@ -1,0 +1,57 @@
+@keyframes load {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.quote {
+	grid-row: 2;
+	grid-column: 3 / span 6;
+	font-size: 1.6em;
+	color: #effbff;
+	animation: fadeIn 0.5s forwards ease;
+}
+
+.quote {
+	border-left: 10px solid #effbff;
+	margin: 1.5em 10px;
+	padding: 0.5em 10px;
+	quotes: '\201C' '\201D' '\2018' '\2019';
+}
+.quote:before {
+	color: #effbff;
+	content: open-quote;
+	font-size: 4em;
+	line-height: 0.1em;
+	margin-right: 0.25em;
+	vertical-align: -0.4em;
+}
+.quote p {
+	display: inline;
+}
+.searchBar {
+	transition: all 0.3s ease;
+	transform-origin: 100% 0;
+}
+input:focus {
+	transform: scaleX(1.1);
+}
+
+.landing-wrap .loadingWrapper {
+	opacity: 0;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
