@@ -21,7 +21,7 @@ export default class Landing extends Component {
 		const style = {
 			landingWrap: {
 				width: '85vw',
-				height: `${85 * 0.48}vw`,
+				height: `37vw`,
 				margin: '5vh auto 0 auto',
 				display: 'grid',
 				gridTemplateColumns: `minmax(10px, 20px) repeat(12, minmax(auto, ${col})) minmax(10px, 20px)`,
@@ -48,7 +48,7 @@ export default class Landing extends Component {
 					bottom: 0,
 					right: 0,
 					zIndex: 10,
-					width: '40vw',
+					width: '37vw',
 					height: 'auto'
 				}
 			}

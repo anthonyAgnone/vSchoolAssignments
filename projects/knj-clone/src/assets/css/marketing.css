@@ -87,9 +87,6 @@
       width: 100%;
       height: auto;
       transition: all 0.3s linear; }
-    .sectionWrapper .wishlistMarketing .slideImages .slideLeft {
-      animation-name: slideLeft;
-      animation-duration: 0.4s; }
   .sectionWrapper .favoritesMarketing {
     padding: 5px;
     display: flex;
@@ -99,9 +96,3 @@
       width: 100%;
       height: auto;
       margin-top: 5px; }
-
-@keyframes slideLeft {
-  from {
-    transform: translateX(110%); }
-  to {
-    transform: translateX(0%); } }

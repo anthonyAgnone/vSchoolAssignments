@@ -6,7 +6,7 @@ export default function Instructions() {
 	const style = {
 		instructionsWrap: {
 			width: '85vw',
-			height: `${85 * 0.48}vw`,
+			height: `37vw`,
 			margin: '5vh auto 0 auto',
 			display: 'grid',
 			gridTemplateColumns: `minmax(10px, 20px) repeat(12, minmax(auto, ${col})) minmax(10px, 20px)`,
