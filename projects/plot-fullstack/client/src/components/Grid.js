@@ -1,18 +1,40 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withGameContext } from './GameProvider';
+import { DropTarget } from 'react-dnd';
+import { Types } from '../lib/constants';
 
-export default class Grid extends Component {
-	render() {
-		const style = {
-			outside: {
-				width: '100%',
-				height: '100%',
-				boxShadow: 'inset 0 0 10px rgba(255,255,255,.4)'
-			}
-		};
-		return (
-			<div className="square-container" style={style.outside}>
-				{this.props.children}
-			</div>
-		);
+const spec = {
+	drop({ moveTo, x, y }, monitor) {
+		const { id } = monitor.getItem();
+		moveTo(x, y, id);
+	},
+	canDrop({ children }) {
+		return !children;
 	}
+};
+
+const collect = (connect, monitor) => {
+	return {
+		connectDropTarget: connect.dropTarget(),
+		isOver: monitor.isOver()
+	};
+};
+
+const styleBackground = isOver => {
+	if (isOver) return 'rgba(255,255,255, .2';
+	else return 'transparent';
+};
+function Grid({ connectDropTarget, isOver, children }) {
+	const squareStyle = {
+		backgroundColor: styleBackground(isOver),
+		width: '12.5%',
+		height: '12.5%'
+	};
+	return connectDropTarget(
+		<div style={squareStyle} className="square-container">
+			{children}
+		</div>
+	);
 }
+
+export default withGameContext(DropTarget(Types.PIECE, spec, collect)(Grid));

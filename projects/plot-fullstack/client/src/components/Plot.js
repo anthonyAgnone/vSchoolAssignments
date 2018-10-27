@@ -4,6 +4,7 @@ import Granim from 'granim';
 
 import Ground from './Ground';
 import Clock from './Clock';
+import Sun from './Sun';
 
 export default class Plot extends Component {
 	constructor(props) {
@@ -13,7 +14,8 @@ export default class Plot extends Component {
 			this.setState({
 				minutes: timestamp.minutes,
 				hours: timestamp.hours,
-				timeOfDay: timestamp.timeOfDay
+				timeOfDay: timestamp.timeOfDay,
+				ticks: timestamp.ticks
 			});
 		});
 
@@ -23,53 +25,6 @@ export default class Plot extends Component {
 			timeOfDay: 0,
 			granim: null
 		};
-
-		this.calcSunPos = this.calcSunPos.bind(this);
-	}
-	calcSunPos() {
-		if (this.state.timeOfDay === 0 || this.state.timeOfDay === 1) {
-			return {
-				position: 'absolute',
-				left: '50%',
-				top: `${100 - this.state.hours * 8.33333 - 10}vh`,
-				width: '20vh',
-				height: '20vh',
-				borderRadius: '50%',
-				transform: 'translateX(-50%)',
-				background:
-					'radial-gradient(ellipse farthest-corner at 50% 50%, rgba(255, 255, 50, 0.8) 0%, rgba(255, 255, 80, 0.2) )',
-				opacity: 0.8,
-				transition: 'all 1.3s linear'
-			};
-		} else if (this.state.hours === 12) {
-			return {
-				position: 'absolute',
-				left: '50%',
-				bottom: `${100 - (this.state.hours - 12) * 8.333333 - 20}vh`,
-				width: '20vh',
-				height: '20vh',
-				borderRadius: '50%',
-				transform: 'translateX(-50%)',
-				background:
-					'radial-gradient(ellipse farthest-corner at 50% 50%, rgba(255, 255, 50, 0.8) 0%, rgba(255, 255, 80, 0.2) )',
-				opacity: 0.8,
-				transition: 'all 1.3s linear'
-			};
-		} else {
-			return {
-				position: 'absolute',
-				left: '50%',
-				bottom: `${100 - (this.state.hours - 12) * 8.333333 - 20}vh`,
-				width: '20vh',
-				height: '20vh',
-				borderRadius: '50%',
-				transform: 'translateX(-50%)',
-				background:
-					'radial-gradient(ellipse farthest-corner at 50% 50%, rgba(255, 255, 50, 0.8) 0%, rgba(255, 255, 80, 0.2) )',
-				opacity: 0.8,
-				transition: 'all 1.3s linear'
-			};
-		}
 	}
 
 	componentDidMount() {
@@ -160,7 +115,7 @@ export default class Plot extends Component {
 	}
 
 	render() {
-		const { hours } = this.state;
+		const { hours, minutes, timeOfDay, ticks } = this.state;
 
 		const watchTimeOfDay = () => {
 			if (hours === 1) {
@@ -225,16 +180,12 @@ export default class Plot extends Component {
 			}
 		};
 
-		//this simulates 'inventory' for user in database
-		const itemList = {
-			items: ['floor', 'floor', 'floor', 'floor']
-		};
 		return (
 			<div>
 				<div style={style.sky}>
 					<canvas id="granim-canvas" style={style.sky} />
-					<div className="sun" style={this.calcSunPos()} />
-					<Ground roomPosition={[2, 2]} timestamp={this.state.timeOfDay} />
+					<Sun time={{ minutes, hours, timeOfDay, ticks }} />
+					<Ground n={8} timestamp={this.state.timeOfDay} />
 				</div>
 				<Clock time={{ ...this.state }} />
 			</div>
