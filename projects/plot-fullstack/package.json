@@ -123,6 +123,7 @@
 		"iconv-lite": "^0.4.23",
 		"ignore-by-default": "^1.0.1",
 		"ignore-walk": "^3.0.1",
+		"immutability-helper": "^2.8.1",
 		"import-lazy": "^2.1.0",
 		"imurmurhash": "^0.1.4",
 		"indexof": "^0.0.1",

@@ -7,7 +7,10 @@ const app = express();
 //if so what do I pass in here
 const io = require('socket.io')();
 
-app.use('/', require('./routes/testRoute'));
+app.use(express.json());
+app.use('/api/plots', require('./routes/plots'));
+app.use('/api/pieces', require('./routes/pieces'));
+app.use('/api/users', require('./routes/users'));
 
 mongoose.connect(
 	process.env.MONGODB_URI,
@@ -60,5 +63,9 @@ io.on('connection', client => {
 	});
 });
 
-io.listen(process.env.PORT);
-console.log('listening on port ', process.env.PORT);
+// io.listen(process.env.PORT);
+// console.log('listening on port ', process.env.PORT);
+
+app.listen(process.env.PORT, () => {
+	console.log('Connected on port ' + process.env.PORT);
+});
