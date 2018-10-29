@@ -25,7 +25,8 @@ function Ground({ n, position, timestamp, pieces }) {
       transition: 'all 2s ease',
       display: 'flex',
       flexWrap: 'wrap',
-      border: '10px solid black'
+      border: '10px solid black',
+      zIndex: 300
     }
   }
   // const [x, y] = position;
