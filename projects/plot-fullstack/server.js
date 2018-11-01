@@ -4,9 +4,6 @@ require('dotenv').config();
 
 const app = express();
 
-//if so what do I pass in here
-const io = require('socket.io')();
-
 app.use(express.json());
 app.use('/api/plots', require('./routes/plots'));
 app.use('/api/pieces', require('./routes/pieces'));
@@ -53,6 +50,11 @@ function handleClock() {
 	else currentTime.timeOfDay = 0;
 }
 
+const server = app.listen(process.env.PORT, () => {
+	console.log('Connected on port ' + process.env.PORT);
+});
+const io = require('socket.io').listen(server);
+
 io.on('connection', client => {
 	client.on('subscribeToTimer', interval => {
 		console.log('client is subscribing to server clock with interval ', interval);
@@ -61,11 +63,4 @@ io.on('connection', client => {
 			client.emit('timer', currentTime);
 		}, interval);
 	});
-});
-
-// io.listen(process.env.PORT);
-// console.log('listening on port ', process.env.PORT);
-
-app.listen(process.env.PORT, () => {
-	console.log('Connected on port ' + process.env.PORT);
 });

@@ -9,7 +9,7 @@ pieceRouter
 	.route('/')
 	.get((req, res, next) => {
 		//ask the database for the right data and send it to the client
-		Piece.find({}, (err, pieces) => {
+		Piece.find(req.query, (err, pieces) => {
 			if (err) {
 				res.status(400);
 				next(err);
@@ -31,5 +31,53 @@ pieceRouter
 			}
 		});
 	});
+
+pieceRouter
+	.route('/:id')
+	.get((req, res) => {
+		Piece.findById(req.params.id, (err, foundPiece) => {
+			if (err) {
+				res.status(400);
+				next(err);
+			} else {
+				res.status(200).send(foundPiece);
+			}
+		});
+	})
+	.delete((req, res) => {
+		Piece.findByIdAndDelete(req.params.id, (err, deletedPiece) => {
+			if (err) {
+				res.status(400);
+				next(err);
+			} else {
+				res.status(204).send();
+			}
+		});
+	})
+	.put((req, res) => {
+		Piece.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, editedPiece) => {
+			if (err) {
+				res.status(400);
+				next(err);
+			} else {
+				res.status(200).send(editedPiece);
+			}
+		});
+	});
+
+pieceRouter.route('/login').post((req, res, next) => {
+	const plot = req.body.id;
+	const query = {
+		plot
+	};
+	Piece.find({ query }, (err, pieces) => {
+		if (err) {
+			res.status(400);
+			next(err);
+		} else {
+			res.status(200).send(pieces);
+		}
+	});
+});
 
 module.exports = pieceRouter;

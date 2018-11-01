@@ -32,4 +32,15 @@ plotRouter
 		});
 	});
 
+plotRouter.route('/login').post((req, res, next) => {
+	const user = req.body.id;
+	const query = {
+		user
+	};
+	Plot.findOne(query, (err, plot) => {
+		if (err) return res.status(500).send(err);
+		return res.status(200).send(plot);
+	});
+});
+
 module.exports = plotRouter;

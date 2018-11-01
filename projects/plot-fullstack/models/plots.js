@@ -3,12 +3,10 @@ const { Schema } = mongoose;
 
 const plotSchema = new Schema({
 	name: String,
-	pieces: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'Piece'
-		}
-	]
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'User'
+	}
 });
 
 module.exports = mongoose.model('Plot', plotSchema);

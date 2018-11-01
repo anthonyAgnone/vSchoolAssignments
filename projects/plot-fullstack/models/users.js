@@ -20,10 +20,6 @@ const UserSchema = new Schema({
 		type: Number,
 		default: 0
 	},
-	plot: {
-		type: Schema.Types.ObjectId,
-		ref: 'Plot'
-	},
 	date: {
 		type: Date,
 		default: Date.now

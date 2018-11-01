@@ -1,6 +1,9 @@
 import React from 'react';
+import { withTimeContext } from './TimeProvider';
 
-export default function Clock({ time: { minutes, hours, timeOfDay } }) {
+import '../assets/css/clock.css';
+
+function Clock({ minutes, hours, timeOfDay }) {
 	const hourFormat = () => {
 		if (hours < 10) {
 			return `0${hours}`;
@@ -19,55 +22,39 @@ export default function Clock({ time: { minutes, hours, timeOfDay } }) {
 		}
 	};
 
-	const formatTimeOfDay = [
-		'at night',
-		'in the morning',
-		'in the afternoon',
-		'in the evening'
-	];
+	// const formatTimeOfDay = [
+	// 	'at night',
+	// 	'in the morning',
+	// 	'in the afternoon',
+	// 	'in the evening'
+	// ];
 
 	const style = {
-		clock: {
-			position: 'absolute',
-			width: '205px',
-			height: '205px',
-			border: '1px solid black',
-			borderRadius: '50%'
-		},
 		minutes: {
-			width: '100px',
-			borderBottom: '1px solid black',
-			height: '1px',
-			position: 'absolute',
-			left: '50%',
-			top: '50%',
-			display: 'block',
-			transformOrigin: 'left',
 			transform: `rotate(${270 + minutes * 6}deg)`
 		},
 		hours: {
-			width: '68px',
-			borderBottom: '1px solid black',
-			height: '1px',
-			position: 'absolute',
-			left: '50%',
-			top: '50%',
-			display: 'block',
-			transformOrigin: 'left',
-			transform: `rotate(${270 + hours * 30}deg)`,
-			transition: 'all .2s linear'
+			transform: `rotate(${270 + hours * 30}deg)`
 		}
 	};
 
 	return (
 		<div className="clock">
-			<p className="clock-text">
-				{hourFormat()} : {minuteFormat()} {formatTimeOfDay[timeOfDay]}
-			</p>
-			<div style={style.clock}>
-				<span style={style.minutes} />
-				<span style={style.hours} />
+			<div className="clock-wrapper">
+				<div className="clock-border">
+					<div className="clock">
+						<span className="minutes" style={style.minutes} />
+						<span className="hours" style={style.hours} />
+						<span className="center" />
+						<p className="clock-text">
+							{hourFormat()} : {minuteFormat()}
+							{/* {formatTimeOfDay[timeOfDay]} */}
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
 }
+
+export default withTimeContext(Clock);

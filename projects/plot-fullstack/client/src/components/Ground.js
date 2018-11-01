@@ -1,61 +1,94 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { withGameContext } from './GameProvider';
+import { withTimeContext } from './TimeProvider';
+import { withRouter } from 'react-router-dom';
+import { TweenLite } from 'gsap/all';
 
-import Room from './Room'
-import Grid from './Grid'
+import Room from './Room';
+import Grid from './Grid';
 
-import bg from '../assets/grass3.png'
+import bg from '../assets/grass3.png';
+import '../assets/css/ground.css';
 
-import { withGameContext } from './GameProvider'
+class Ground extends Component {
+	constructor() {
+		super();
 
-function Ground({ n, position, timestamp, pieces }) {
-  const groundColors = ['#1f2b0e', '#8ec63f', '#edc672', '#783938']
-  const style = {
-    ground: {
-      backgroundImage: `url(${bg})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center center',
-      backgroundColor: groundColors[timestamp],
-      height: '100vh',
-      width: '100vh',
-      position: 'absolute',
-      top: '5vh',
-      left: '50%',
-      transform: 'translateX(-50%) rotateX(60deg) rotateY(0deg) rotateZ(-45deg)',
-      transition: 'all 2s ease',
-      display: 'flex',
-      flexWrap: 'wrap',
-      border: '10px solid black',
-      zIndex: 300
-    }
-  }
-  // const [x, y] = position;
-  const genGrid = n => {
-    const grid = []
-    for (let i = 0; i < n * n; i++) {
-      const squareX = i % n
-      const squareY = Math.floor(i / n)
-      const piece = pieces.reduce((acc, p) => {
-        if (squareX === p.position[0] && squareY === p.position[1]) {
-          return <Room wall={p.wall} material={p.material} id={p.id} type={p.type} />
-        } else {
-          return acc
-        }
-      }, null)
+		this.myElement = null;
+		this.myTween = null;
+		this.animation = this.animation.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
 
-      grid.push(
-        <Grid x={squareX} y={squareY} key={i}>
-          {piece}
-        </Grid>
-      )
-    }
-    return grid
-  }
-  return (
-    <div style={style.ground} className="board-wrapper">
-      {genGrid(n)}
-    </div>
-  )
+	handleLogout() {
+		this.props.handleLogout();
+		setTimeout(() => {
+			this.props.history.push({ pathname: '/' });
+		}, 1500);
+	}
+	animation() {
+		this.myTween = TweenLite.to(this.myElement, 1, {
+			css: {
+				transform: 'translateX(-100%) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(0.6)',
+				opacity: 0.5
+			},
+			onComplete: this.handleLogout
+		});
+	}
+
+	genGrid = n => {
+		const grid = [];
+		for (let i = 0; i < n * n; i++) {
+			const squareX = i % n;
+			const squareY = Math.floor(i / n);
+			const piece = this.props.pieces.reduce((acc, p) => {
+				if (squareX === p.position[0] && squareY === p.position[1]) {
+					return (
+						<Room
+							handleIsEditing={this.props.handleIsEditing(p._id)}
+							wall={p.wall}
+							material={p.material}
+							_id={p._id}
+							type={p.type}
+						/>
+					);
+				} else {
+					return acc;
+				}
+			}, null);
+
+			grid.push(
+				<Grid x={squareX} y={squareY} key={i}>
+					{piece}
+				</Grid>
+			);
+		}
+		return grid;
+	};
+	render() {
+		const groundColors = ['#1f2b0e', '#8ec63f', '#edc672', '#783938'];
+		const style = {
+			ground: {
+				backgroundColor: groundColors[this.props.timeOfDay],
+				backgroundImage: `url(${bg})`
+			}
+		};
+		return (
+			<div>
+				<button className="logout-button" onClick={() => this.animation()}>
+					<span>LogOut</span>
+				</button>
+				<div
+					ref={div => (this.myElement = div)}
+					style={style.ground}
+					className="ground-wrapper"
+				>
+					{this.genGrid(this.props.n)}
+				</div>
+			</div>
+		);
+	}
 }
 
-export default withGameContext(Ground)
+// export default withRouter(withTimeContext(withGameContext()()(Ground)));
+export default withRouter(withTimeContext(withGameContext()(Ground)));

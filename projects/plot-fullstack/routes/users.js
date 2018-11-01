@@ -1,5 +1,4 @@
 const express = require('express');
-
 const { Router } = express;
 
 const User = require('../models/users');
@@ -31,5 +30,15 @@ userRouter
 			}
 		});
 	});
+
+userRouter.route('/login').post((req, res, next) => {
+	const email = req.body.email;
+	const password = req.body.password;
+	User.findOne({ email }, (err, user) => {
+		if (password === user.password) {
+			return res.status(200).send(user);
+		} else return res.status(200).send('password incorrect');
+	});
+});
 
 module.exports = userRouter;
