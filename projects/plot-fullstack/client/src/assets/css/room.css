@@ -1,8 +1,7 @@
 .room {
   box-sizing: border-box;
   background-size: cover;
-  overflow: hidden;
-  background-position: center cetner;
+  background-position: center center;
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
@@ -16,6 +15,15 @@
   background-color: green;
   width: 80%;
   height: 80%;
-  margin: 10% auto; }
+  margin: 10% auto;
+  position: relative;
+  cursor: pointer; }
   .garden:hover {
+    box-shadow: inset 0 0 10px #fff; }
+
+.gravel {
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer; }
+  .gravel:hover {
     box-shadow: inset 0 0 10px #fff; }

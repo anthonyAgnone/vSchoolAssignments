@@ -21,6 +21,7 @@ class Login extends Component {
 	handleSubmit(e) {
 		e.preventDefault();
 		const { email, password } = this.state;
+		console.log(email, password);
 		this.props.handleLogin(email, password);
 		setTimeout(this.props.animation(), 2000);
 	}
@@ -42,4 +43,4 @@ class Login extends Component {
 }
 
 // export default withGameContext()()(Login);
-export default withGameContext()(Login);
+export default withGameContext(({ handleLogin }) => ({ handleLogin }))(Login);

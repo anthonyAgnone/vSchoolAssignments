@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withGameContext } from './GameProvider';
 import { withPiece } from './GetPiece';
-import axios from 'axios';
 
 import '../assets/css/editPiece.css';
 
@@ -13,12 +12,13 @@ class EditPieces extends Component {
 			_id,
 			material: material || '',
 			type: type || '',
-			wall: wall || ''
+			wall: wall || '',
+			subPiece: null
 		};
 
 		this.handleChange = this.handleChange.bind(this);
-		this.handleEdit = this.handleEdit.bind(this);
-		this.handleDelete = this.handleDelete(this);
+		this.handleViewFurniture = this.handleViewFurniture.bind(this);
+		this.handleGetSubPrice = this.handleGetSubPrice.bind(this);
 	}
 
 	static getDerivedStateFromProps({ wall, material, _id }, prevState) {
@@ -39,12 +39,7 @@ class EditPieces extends Component {
 		this.setState({
 			[name]: value
 		});
-	}
-
-	handleEdit(e) {}
-
-	handleDelete(e) {
-		// e.preventDefault();
+		this.handleGetPrice = this.handleGetPrice.bind(this);
 	}
 
 	materialSelect() {
@@ -53,6 +48,9 @@ class EditPieces extends Component {
 				<option value="">Choose Material</option>
 				<option value="wood">Wood</option>
 				<option value="tile">Tile</option>
+				<option value="planks">Planks</option>
+				<option value="plywood">Plywood</option>
+				<option value="decBrick">Decorative Brick</option>
 			</select>
 		);
 	}
@@ -80,6 +78,38 @@ class EditPieces extends Component {
 		);
 	}
 
+	handleGetPrice() {
+		const hasSubPiece = this.props.subPieces.find(el => el.piece === this.state._id);
+		if (hasSubPiece) {
+			const isMature = this.props.gardenMature.find(el => el === hasSubPiece._id);
+			if (isMature) return 100;
+			else return 20;
+		} else return 5;
+	}
+
+	handleViewFurniture() {
+		return (
+			<select name="subPiece" value={this.state.subPiece} onChange={this.handleChange}>
+				<option value="">Add nothing</option>
+				{this.state.material === 'tile' ? null : <option value="bed">Add Bed : $15</option>}
+				{this.state.material === 'tile' ? null : (
+					<option value="couch">Add Couch: $15</option>
+				)}
+				{this.state.material === 'tile' ? (
+					<option value="fridge">Add Refrigerator : $45</option>
+				) : null}
+			</select>
+		);
+	}
+
+	handleGetSubPrice() {
+		const { subPiece } = this.state;
+		if (subPiece === 'bed') return 15;
+		else if (subPiece === 'couch') return 15;
+		else if (subPiece === 'fridge') return 45;
+		else return 0;
+	}
+
 	render() {
 		const style = {
 			editWrapper: {
@@ -95,20 +125,38 @@ class EditPieces extends Component {
 					<form>
 						<h1>{this.props.type}</h1>
 						{this.props.type === 'room' ? this.materialSelect() : null}
-						{this.props.type === 'room' ? this.wallSelect() : null}
+						{this.props.type === 'room' || this.props.type === 'gravel'
+							? this.wallSelect()
+							: null}
+						{this.props.type === 'room' ? this.handleViewFurniture() : null}
 					</form>
 				</div>
 				<div className="buttons">
+					{this.props.type === 'garden' ? null : (
+						<button
+							onClick={() =>
+								this.props.handleEditPiece(
+									this.state._id,
+									this.state.material,
+									this.state.wall,
+									this.state.subPiece,
+									this.props.plot,
+									this.handleGetSubPrice()
+								)
+							}
+							className="edit-button"
+						>
+							<span>Edit Piece</span>
+						</button>
+					)}
+
 					<button
 						onClick={() =>
-							this.props.handleEditPiece(this.state._id, this.state.material, this.state.wall)
+							this.props.handleDeletePiece(this.state._id, this.handleGetPrice())
 						}
-						className="edit-button"
+						className="delete-button"
 					>
-						<span>Edit Piece</span>
-					</button>
-					<button onClick={() => this.handleDelete()} className="delete-button">
-						<span>Delete Piece</span>
+						<span>Sell Piece</span>
 					</button>
 				</div>
 			</div>
@@ -116,9 +164,20 @@ class EditPieces extends Component {
 	}
 }
 
-export default withGameContext(({ handleIsEditing, handleEditPiece }) => ({
-	handleIsEditing,
-	handleEditPiece
-}))(withPiece(EditPieces));
-
-// export default withGameContext()()(withPiece(EditPieces));
+export default withGameContext(
+	({
+		handleIsEditing,
+		handleEditPiece,
+		handleDeletePiece,
+		gardenMature,
+		subPieces,
+		plot
+	}) => ({
+		handleIsEditing,
+		handleEditPiece,
+		handleDeletePiece,
+		gardenMature,
+		subPieces,
+		plot
+	})
+)(withPiece(EditPieces));

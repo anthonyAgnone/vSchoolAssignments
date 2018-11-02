@@ -9,10 +9,11 @@ import EditPieces from './EditPieces';
 
 import '../assets/css/plot.css';
 
-function Plot({ plotName, user, pieces }) {
+function Plot({ plotName, pieces, money }) {
 	return (
 		<Fragment>
 			<h1 className="plot-name">{plotName}</h1>
+			<h3 className="money">$ {money}</h3>
 			<Ground n={8} />
 			<Clock />
 			<PieceManip />
@@ -22,4 +23,8 @@ function Plot({ plotName, user, pieces }) {
 }
 
 // export default withGameContext()()(Plot);
-export default withGameContext()(Plot);
+export default withGameContext(({ plotName, pieces, money }) => ({
+	plotName,
+	pieces,
+	money
+}))(Plot);

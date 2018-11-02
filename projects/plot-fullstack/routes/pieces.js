@@ -44,16 +44,6 @@ pieceRouter
 			}
 		});
 	})
-	.delete((req, res) => {
-		Piece.findByIdAndDelete(req.params.id, (err, deletedPiece) => {
-			if (err) {
-				res.status(400);
-				next(err);
-			} else {
-				res.status(204).send();
-			}
-		});
-	})
 	.put((req, res) => {
 		Piece.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, editedPiece) => {
 			if (err) {
@@ -61,6 +51,16 @@ pieceRouter
 				next(err);
 			} else {
 				res.status(200).send(editedPiece);
+			}
+		});
+	})
+	.delete((req, res, next) => {
+		Piece.findByIdAndDelete(req.params.id, (err, deletedPiece) => {
+			if (err) {
+				res.status(400);
+				next(err);
+			} else {
+				res.status(204).send(deletedPiece);
 			}
 		});
 	});

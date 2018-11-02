@@ -8,6 +8,7 @@ app.use(express.json());
 app.use('/api/plots', require('./routes/plots'));
 app.use('/api/pieces', require('./routes/pieces'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/subPieces', require('./routes/subPieces'));
 
 mongoose.connect(
 	process.env.MONGODB_URI,
@@ -21,7 +22,8 @@ const currentTime = {
 	hours: 0,
 	minutes: 0,
 	timeOfDay: 0,
-	ticks: 0
+	ticks: 0,
+	totalTicks: 0
 };
 
 function handleClock() {
@@ -48,6 +50,8 @@ function handleClock() {
 	else if (currentTime.hours >= 12 && currentTime.hours < 18) currentTime.timeOfDay = 2;
 	else if (currentTime.hours >= 18 && currentTime.hours < 21) currentTime.timeOfDay = 3;
 	else currentTime.timeOfDay = 0;
+
+	currentTime.totalTicks++;
 }
 
 const server = app.listen(process.env.PORT, () => {

@@ -2,7 +2,6 @@ import React from 'react';
 import { withGameContext } from './GameProvider';
 import { DropTarget } from 'react-dnd';
 import { Types } from '../lib/constants';
-import axios from 'axios';
 
 const spec = {
 	drop({ moveTo, x, y }, monitor) {
@@ -39,4 +38,6 @@ function Grid({ connectDropTarget, isOver, children }) {
 }
 
 // export default withGameContext()()(DropTarget(Types.PIECE, spec, collect)(Grid));
-export default withGameContext()(DropTarget(Types.PIECE, spec, collect)(Grid));
+export default withGameContext(({ moveTo }) => ({ moveTo }))(
+	DropTarget(Types.PIECE, spec, collect)(Grid)
+);

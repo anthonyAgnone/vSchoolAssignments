@@ -3,11 +3,12 @@ import { subscribeToTimer } from '../api';
 
 const { Consumer, Provider } = createContext();
 
-export default class GameProvider extends Component {
+export default class TimeProvider extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			plantWillGrow: false,
 			minutes: 0,
 			hours: 0,
 			timeOfDay: 0,
@@ -19,9 +20,18 @@ export default class GameProvider extends Component {
 				minutes: timestamp.minutes,
 				hours: timestamp.hours,
 				timeOfDay: timestamp.timeOfDay,
-				ticks: timestamp.ticks
+				ticks: timestamp.ticks,
+				totalTicks: timestamp.totalTicks
 			});
 		});
+	}
+
+	resetBool() {
+		if (this.state.plantWillGrow === true) {
+			this.setState({
+				plantWillGrow: false
+			});
+		}
 	}
 
 	render() {

@@ -31,9 +31,22 @@ userRouter
 		});
 	});
 
+userRouter.route('/current/:id').put((req, res) => {
+	console.log(req.params.id);
+	User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, editedUser) => {
+		if (err) {
+			res.status(400);
+			next(err);
+		} else {
+			res.status(200).send(editedUser);
+		}
+	});
+});
+
 userRouter.route('/login').post((req, res, next) => {
-	const email = req.body.email;
-	const password = req.body.password;
+	var email = req.body.email;
+	var password = req.body.password;
+	console.log(email, password);
 	User.findOne({ email }, (err, user) => {
 		if (password === user.password) {
 			return res.status(200).send(user);

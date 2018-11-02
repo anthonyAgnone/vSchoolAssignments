@@ -45,11 +45,12 @@ class Ground extends Component {
 				if (squareX === p.position[0] && squareY === p.position[1]) {
 					return (
 						<Room
-							handleIsEditing={this.props.handleIsEditing(p._id)}
+							handleIsEditing={this.props.handleIsEditing(p._id, p._type)}
 							wall={p.wall}
 							material={p.material}
 							_id={p._id}
 							type={p.type}
+							child={this.props.subPieces.find(subPiece => subPiece.piece === p._id)}
 						/>
 					);
 				} else {
@@ -91,4 +92,13 @@ class Ground extends Component {
 }
 
 // export default withRouter(withTimeContext(withGameContext()()(Ground)));
-export default withRouter(withTimeContext(withGameContext()(Ground)));
+export default withRouter(
+	withTimeContext(
+		withGameContext(({ subPieces, handleIsEditing, pieces, handleLogout }) => ({
+			subPieces,
+			handleIsEditing,
+			pieces,
+			handleLogout
+		}))(Ground)
+	)
+);

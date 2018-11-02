@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withGameContext } from './GameProvider';
+import { withTimeContext } from './TimeProvider';
 import HamburgerMenu from 'react-hamburger-menu';
 
 import '../assets/css/createForm.css';
@@ -10,7 +11,7 @@ class PieceManip extends Component {
 
 		this.state = {
 			type: '',
-			material: '',
+			material: null,
 			walls: null,
 			open: false,
 			step: 0
@@ -49,43 +50,71 @@ class PieceManip extends Component {
 			}
 		};
 		const handleMaterialForm = () => {
-			if (this.state.type !== 'room') {
-				return null;
-			} else {
+			if (this.state.type === 'room' || this.state.type === 'gravel') {
 				return (
 					<select name="material" value={this.state.material} onChange={this.handleChange}>
 						<option value="">Choose Material</option>
-						<option value="wood">Wood</option>
-						<option value="tile">Tile</option>
+						<option value="wood">Wood : $5</option>
+						<option value="tile">Tile : $5</option>
+						<option value="planks">Planks : $4</option>
+						<option value="plywood">Plywood : $3</option>
+						<option value="decBrick">Decorative Brick : $10</option>
+						<option value="gravel">Gravel : $1</option>
 					</select>
 				);
-			}
+			} else return null;
 		};
+
 		const handleWallForm = () => {
-			if (this.state.type !== 'room' || this.state.step !== 1) {
+			if (!this.state.material) {
 				return null;
 			} else {
 				return (
 					<select name="walls" value={this.state.wall} onChange={this.handleChange}>
 						<option value="">Choose Wall</option>
 						<option value="">None</option>
-						<option value="east">East</option>
-						<option value="south">South</option>
-						<option value="west">West</option>
-						<option value="north">North</option>
-						<option value="northWest">North West</option>
-						<option value="northEast">North East</option>
-						<option value="southWest">South West</option>
-						<option value="southEast">South East</option>
-						<option value="northSouthEast">North South East</option>
-						<option value="northSouthWest">North South West</option>
-						<option value="southEastWest">South East West</option>
-						<option value="northEastWest">North East West</option>
-						<option value="northSouth">North South</option>
-						<option value="eastWest">East West</option>
+						<option value="east">East : $2</option>
+						<option value="south">South : $2</option>
+						<option value="west">West : $2</option>
+						<option value="north">North : $2</option>
+						<option value="northWest">North West : $2</option>
+						<option value="northEast">North East : $2</option>
+						<option value="southWest">South West : $2</option>
+						<option value="southEast">South East : $2</option>
+						<option value="northSouthEast">North South East : $2</option>
+						<option value="northSouthWest">North South West : $2</option>
+						<option value="southEastWest">South East West : $2</option>
+						<option value="northEastWest">North East West : $2</option>
+						<option value="northSouth">North South : $2</option>
+						<option value="eastWest">East West : $2</option>
 					</select>
 				);
 			}
+		};
+
+		const pieceCost = () => {
+			const { type, material, walls } = this.state;
+			let piece = 0;
+			let materialCost = 0;
+			let wallsCost = 0;
+
+			if (type === 'room') piece += 20;
+			else if (type === 'garden') piece += 60;
+			else piece += 10;
+
+			if (material === 'wood') materialCost += 5;
+			else if (material === 'tile') materialCost += 5;
+			else if (material === 'planks') materialCost += 4;
+			else if (material === 'plywood') materialCost += 3;
+			else if (material === 'decBrick') materialCost += 10;
+			else if (material === 'gravel') materialCost += 1;
+			else materialCost += 0;
+
+			if (walls) wallsCost += 2;
+
+			console.log(piece, materialCost, wallsCost, piece + materialCost + wallsCost);
+
+			return piece + materialCost + wallsCost;
 		};
 		return (
 			<div className="form-wrapper" style={style.manipWrapper}>
@@ -102,21 +131,26 @@ class PieceManip extends Component {
 					<form>
 						<select name="type" value={this.state.type} onChange={this.handleChange}>
 							<option value="null">Type of Piece</option>
-							<option value="room">Room</option>
-							<option value="garden">Garden</option>
+							<option value="room">Room : $20</option>
+							<option value="garden">Garden : $60</option>
+							<option value="gravel">Walkway : $10</option>
 						</select>
 						{handleMaterialForm()}
 						{handleWallForm()}
 					</form>
 					<button
 						className="button"
-						onClick={() =>
-							this.props.handleAddPiece(
-								this.state.type,
-								this.state.material,
-								this.state.walls
-							)
-						}
+						onClick={() => {
+							if (this.props.money > pieceCost()) {
+								this.props.handleBuyRoom(pieceCost());
+								this.props.handleAddPiece(
+									this.state.type,
+									this.state.material,
+									this.state.walls,
+									this.props.totalTicks
+								);
+							}
+						}}
 					>
 						<span>Make Room</span>
 					</button>
@@ -127,4 +161,10 @@ class PieceManip extends Component {
 }
 
 // export default withGameContext()()(PieceManip);
-export default withGameContext()(PieceManip);
+export default withTimeContext(
+	withGameContext(({ handleAddPiece, handleBuyRoom, money }) => ({
+		handleAddPiece,
+		handleBuyRoom,
+		money
+	}))(PieceManip)
+);

@@ -4,6 +4,7 @@ import axios from 'axios';
 const piecesUrl = '/api/pieces';
 const usersUrl = '/api/users';
 const plotUrl = '/api/plots';
+const subPieceUrl = '/api/subPieces';
 
 const { Consumer, Provider } = createContext();
 
@@ -12,10 +13,13 @@ export default class GameProvider extends Component {
 		super(props);
 		this.state = {
 			user: '',
+			money: '',
 			plot: '',
 			plotName: '',
 			pieces: [],
-			editedPiece: null
+			editedPiece: null,
+			subPieces: [],
+			gardenMature: []
 		};
 		this.moveTo = this.moveTo.bind(this);
 		this.findMissing = this.findMissing.bind(this);
@@ -25,6 +29,11 @@ export default class GameProvider extends Component {
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleIsEditing = this.handleIsEditing.bind(this);
 		this.handleEditPiece = this.handleEditPiece.bind(this);
+		this.handleDeletePiece = this.handleDeletePiece.bind(this);
+		this.handleAddSubPiece = this.handleAddSubPiece.bind(this);
+		this.handleBuyRoom = this.handleBuyRoom.bind(this);
+		this.handleSellPiece = this.handleSellPiece.bind(this);
+		this.handleSellCrops = this.handleSellCrops.bind(this);
 	}
 
 	handleRegister(user, email, password) {
@@ -34,7 +43,8 @@ export default class GameProvider extends Component {
 			.then(response => {
 				console.log(response, 'new user');
 				this.setState({
-					user: response.data._id
+					user: response.data._id,
+					money: response.data.money
 				});
 				this.newPlot(response.data._id, response.data.name);
 			})
@@ -64,7 +74,7 @@ export default class GameProvider extends Component {
 		return i;
 	}
 
-	handleAddPiece(type, material, wall) {
+	handleAddPiece(type, material, wall, totalTicks) {
 		const piecePositions = [];
 		this.state.pieces.map(piece => {
 			piecePositions.push(piece.position[0] * 8 + piece.position[1]);
@@ -92,10 +102,30 @@ export default class GameProvider extends Component {
 		axios
 			.post(piecesUrl, newObject)
 			.then(response => {
-				console.log(response);
 				const newArray = this.state.pieces.slice();
 				newArray.push(response.data);
 				this.setState({ pieces: newArray });
+				if (newObject.type === 'garden') {
+					const { _id, plot } = response.data;
+					this.handleAddSubPiece(_id, plot, 'garden', totalTicks);
+				}
+			})
+			.catch(err => console.log(err));
+	}
+
+	handleAddSubPiece(piece, plot, type, totalTicks) {
+		const newObject = {
+			type,
+			createdTick: totalTicks,
+			piece,
+			plot
+		};
+		axios
+			.post(subPieceUrl, newObject)
+			.then(response => {
+				const newArray = this.state.subPieces.slice();
+				newArray.push(response.data);
+				this.setState({ subPieces: newArray });
 			})
 			.catch(err => console.log(err));
 	}
@@ -105,7 +135,8 @@ export default class GameProvider extends Component {
 			.post('/api/users/login', { email, password })
 			.then(response => {
 				this.setState({
-					user: response.data._id
+					user: response.data._id,
+					money: response.data.money
 				});
 				return response.data._id;
 			})
@@ -130,8 +161,18 @@ export default class GameProvider extends Component {
 				this.setState({
 					pieces: newArray
 				});
+				this.handleGetSubPieces(plot_id);
 			})
 			.catch(err => console.log(err));
+	}
+
+	handleGetSubPieces(plot_id) {
+		axios.post('/api/subPieces/login', { id: plot_id }).then(response => {
+			const newArray = response.data;
+			this.setState({
+				subPieces: newArray
+			}).catch(err => console.log(err));
+		});
 	}
 
 	moveTo(x, y, _id) {
@@ -147,7 +188,7 @@ export default class GameProvider extends Component {
 		axios.put(`/api/pieces/${_id}`, { position: [x, y] });
 	}
 
-	handleIsEditing(_id) {
+	handleIsEditing(_id, type) {
 		return e => {
 			this.setState({
 				editedPiece: _id
@@ -155,7 +196,15 @@ export default class GameProvider extends Component {
 		};
 	}
 
-	handleEditPiece(_id, material, wall) {
+	handleSellCrops(id) {
+		const newArray = [...this.state.gardenMature];
+		newArray.push(id);
+		this.setState({
+			gardenMature: newArray
+		});
+	}
+
+	handleEditPiece(_id, material, wall, subPiece, plot, subPrice) {
 		const editObject = {
 			material: material,
 			wall: wall
@@ -166,8 +215,30 @@ export default class GameProvider extends Component {
 				this.setState(prevState => ({
 					pieces: prevState.pieces.map(piece => (piece._id === _id ? response.data : piece))
 				}));
+				if (subPiece) {
+					this.handleAddSubPiece(_id, plot, subPiece, 0);
+					this.handleBuyRoom(subPrice);
+				}
 			})
 			.catch(err => console.log(err));
+	}
+	handleDeletePiece(_id, amount) {
+		const subDelete = this.state.subPieces.find(element => element.piece === _id);
+		if (subDelete) {
+			axios.delete(`/api/subPieces/${subDelete._id}`).then(() => {
+				const newArray = [...this.state.subPieces];
+				this.setState({
+					subPieces: newArray.filter(subPiece => subPiece._id !== subDelete._id)
+				});
+			});
+		}
+		axios.delete(`/api/pieces/${_id}`).then(() => {
+			const newArray = [...this.state.pieces];
+			this.setState({
+				pieces: newArray.filter(piece => piece._id !== _id)
+			});
+			this.handleSellPiece(amount);
+		});
 	}
 
 	handleLogout() {
@@ -179,8 +250,26 @@ export default class GameProvider extends Component {
 		});
 	}
 
-	componentDidMount() {
-		this.handleLogin('1@gmail.com', 'asdf');
+	handleBuyRoom(price) {
+		const newMoney = {
+			money: this.state.money - price
+		};
+		axios.put(`/api/users/current/${this.state.user}`, newMoney).then(response => {
+			this.setState({
+				money: response.data.money
+			});
+		});
+	}
+
+	handleSellPiece(amount) {
+		const newMoney = {
+			money: this.state.money + amount
+		};
+		axios.put(`/api/users/current/${this.state.user}`, newMoney).then(response => {
+			this.setState({
+				money: response.data.money
+			});
+		});
 	}
 
 	render() {
@@ -192,7 +281,10 @@ export default class GameProvider extends Component {
 			handleLogin: this.handleLogin,
 			handleLogout: this.handleLogout,
 			handleIsEditing: this.handleIsEditing,
-			handleEditPiece: this.handleEditPiece
+			handleEditPiece: this.handleEditPiece,
+			handleDeletePiece: this.handleDeletePiece,
+			handleBuyRoom: this.handleBuyRoom,
+			handleSellCrops: this.handleSellCrops
 		};
 		return <Provider value={value}>{this.props.children}</Provider>;
 	}

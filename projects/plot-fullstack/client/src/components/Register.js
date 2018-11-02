@@ -14,17 +14,14 @@ class Register extends Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleChange(event) {
-		const target = event.target;
-		const value = target.value;
-		const name = target.name;
-
+	handleChange({ target: { name, value } }) {
 		this.setState({
 			[name]: value
 		});
 	}
 
-	handleSubmit() {
+	handleSubmit(e) {
+		e.preventDefault();
 		const { user, email, password } = this.state;
 		this.props.handleRegister(user, email, password);
 		setTimeout(this.props.animation(), 2000);
@@ -32,7 +29,7 @@ class Register extends Component {
 
 	render() {
 		return (
-			<div className="form" onSubmit={() => this.handleSubmit()}>
+			<div className="form" onSubmit={this.handleSubmit}>
 				<h1>Register</h1>
 				<form>
 					<input onChange={this.handleChange} name="user" type="text" />
@@ -49,4 +46,4 @@ class Register extends Component {
 }
 
 // export default withGameContext()()(Register);
-export default withGameContext()(Register);
+export default withGameContext(({ handleRegister }) => ({ handleRegister }))(Register);
