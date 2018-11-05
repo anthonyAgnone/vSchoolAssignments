@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import 'whatwg-fetch';
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:8000');
+import { subscribeToChat, socket } from '../api';
 
 export default class ChatBox extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			message: ''
+			messages: [],
+			sentMessage: ''
 		};
 		this.sendSocketIO = this.sendSocketIO.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 	}
 	sendSocketIO(e) {
 		e.preventDefault();
-		socket.emit('sent_message', this.state.message);
+		socket.emit('sent_message', this.state.sentMessage);
+		e.target.reset();
 	}
 	handleChange({ target: { name, value } }) {
 		this.setState({
 			[name]: value
+		});
+	}
+
+	componentDidMount() {
+		subscribeToChat((err, message) => {
+			this.setState(({ messages }) => ({
+				messages: [...messages, message]
+			}));
 		});
 	}
 	render() {
@@ -31,7 +39,8 @@ export default class ChatBox extends Component {
 				height: '50%',
 				width: '100%',
 				padding: '5%',
-				overflowY: 'scroll'
+				overflowY: 'scroll',
+				color: '#000'
 			},
 			form: {
 				display: 'flex',
@@ -51,10 +60,14 @@ export default class ChatBox extends Component {
 					<p>General Chat</p>
 				</div>
 				<div style={style.body} className="chat-body">
-					all messages go here
+					{this.state.messages.map(msg => (
+						<p>
+							{msg.from}: {msg.content}
+						</p>
+					))}
 				</div>
 				<form style={style.form} onSubmit={this.sendSocketIO}>
-					<input onChange={this.handleChange} type="text" name="message" id="password" />
+					<input onChange={this.handleChange} type="text" name="sentMessage" />
 					<button style={style.form.button}>Submit</button>
 				</form>
 			</div>

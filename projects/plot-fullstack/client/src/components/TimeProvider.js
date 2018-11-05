@@ -14,7 +14,16 @@ export default class TimeProvider extends Component {
 			timeOfDay: 0,
 			granim: null
 		};
+	}
 
+	resetBool() {
+		if (this.state.plantWillGrow === true) {
+			this.setState({
+				plantWillGrow: false
+			});
+		}
+	}
+	componentDidMount() {
 		subscribeToTimer((err, timestamp) => {
 			this.setState({
 				minutes: timestamp.minutes,
@@ -24,14 +33,6 @@ export default class TimeProvider extends Component {
 				totalTicks: timestamp.totalTicks
 			});
 		});
-	}
-
-	resetBool() {
-		if (this.state.plantWillGrow === true) {
-			this.setState({
-				plantWillGrow: false
-			});
-		}
 	}
 
 	render() {

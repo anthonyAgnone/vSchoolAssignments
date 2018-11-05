@@ -3,5 +3,5 @@ export const Types = {
 };
 
 export const Interval = {
-	interval: 80
+	interval: 200
 };
